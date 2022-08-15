@@ -13,7 +13,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QAChallengeAppTest {
@@ -145,6 +146,7 @@ public class QAChallengeAppTest {
     @DisplayName("Should successfully create account")
     @Order(1)
     public void testCreateAccountSuccess() {
+
         assertEquals(MAIN_ACTIVITY, androidDriver.currentActivity());
         Map<String, String> params = getMap("uday", "varma", "uday@gmail.com", "secret");
 
@@ -205,7 +207,7 @@ public class QAChallengeAppTest {
     }
 
     @Test
-    @DisplayName("Should validate first name for blank value while creating account")
+    @DisplayName("Should validate first name for blank value while creating account and throw error icon on first name field")
     @Order(4)
     public void testCreateAccountValidationFirstNameBlank() {
         // Check for these buttons on the screen - create & login
@@ -238,14 +240,14 @@ public class QAChallengeAppTest {
     }
 
     @Test
-    @DisplayName("Should validate email for blank value while creating account")
+    @DisplayName("Should validate email for blank value while creating account and it throws error icon on the email field")
     @Order(5)
     public void testCreateAccountValidationEmailBlank() {
         goToCreateAccountScreen();
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("valid", "valid", "", "secret");
+        createAccount("valid11", "valid22", "", "secret");
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
 
@@ -257,7 +259,7 @@ public class QAChallengeAppTest {
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("valid", "valid", "invalid", "secret");
+        createAccount("valid02", "valid03", "invalid", "secret");
 
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
@@ -269,7 +271,7 @@ public class QAChallengeAppTest {
     public void testCreateAccountValidationLastNameBlank() {
         goToCreateAccountScreen();
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
-        createAccount("valid", "", "valid@site.com", "secret");
+        createAccount("valid01", "", "valid01@site.com", "secret");
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
 
@@ -281,11 +283,10 @@ public class QAChallengeAppTest {
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeee", "test",
-                "valid@site.com", "secret");
+        createAccount("11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeee", "test1",
+                "valid2@site.com", "secret");
 
-        WebElement btnCreateAccount = androidDriver.findElement(By.id("btnCreateAccount"));
-        assertNull(btnCreateAccount);
+        getWebElementById("btnCreateAccount");
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
@@ -298,11 +299,11 @@ public class QAChallengeAppTest {
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("valid", "11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeeefff",
-                "valid@site.com", "secret");
+        createAccount("valid3", "11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeeefff",
+                "valid3@site.com", "secret");
 
-        WebElement btnCreateAccount = androidDriver.findElement(By.id("btnCreateAccount"));
-        assertNull(btnCreateAccount);
+
+        getWebElementById("btnCreateAccount");
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
@@ -315,11 +316,8 @@ public class QAChallengeAppTest {
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("valid", "valid",
+        createAccount("valid5", "valid6",
                 "11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeeefff@site.com", "secret");
-
-        WebElement btnCreateAccount = androidDriver.findElement(By.id("btnCreateAccount"));
-        assertNull(btnCreateAccount);
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
@@ -332,11 +330,8 @@ public class QAChallengeAppTest {
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
 
-        createAccount("valid", "valid",
+        createAccount("validfirstname", "validlastname",
                 "email@site.com", "11aaaaaaaaabbbbbbbbbbbbcccccccccddddddddeeeeeeeeeeefff");
-
-        WebElement btnCreateAccount = androidDriver.findElement(By.id("btnCreateAccount"));
-        assertNull(btnCreateAccount);
 
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
