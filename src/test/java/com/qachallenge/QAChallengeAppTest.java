@@ -336,4 +336,85 @@ public class QAChallengeAppTest {
         assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
     }
 
+    @Test
+    @DisplayName("Should validate first name min length while creating account")
+    @Order(12)
+    public void testCreateAccountMinLengthValidationFirstName() {
+        goToCreateAccountScreen();
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+
+        createAccount("A", "test1",
+                "valid19@site.com", "secret");
+
+        getWebElementById("btnCreateAccount");
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+    }
+
+    @Test
+    @DisplayName("Should validate first name with special characters while creating account")
+    @Order(13)
+    public void testCreateAccountWithSpecialCharactersValidationFirstName() {
+        goToCreateAccountScreen();
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+
+        createAccount("A!£", "test1",
+                "valid20@site.com", "secret");
+
+        getWebElementById("btnCreateAccount");
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+    }
+
+    @Test
+    @DisplayName("Should validate last name for min length while creating account")
+    @Order(14)
+    public void testCreateAccountValidationMinLastName() {
+        goToCreateAccountScreen();
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+
+        createAccount("valid3", "B",
+                "valid21@site.com", "secret");
+
+
+        getWebElementById("btnCreateAccount");
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+    }
+
+    @Test
+    @DisplayName("Should validate last name with special characters while creating account")
+    @Order(15)
+    public void testCreateAccountValidationForSpecialCharactersLastName() {
+        goToCreateAccountScreen();
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+
+        createAccount("valid3", "Ve&!",
+                "valid22@site.com", "secret");
+
+
+        getWebElementById("btnCreateAccount");
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+    }
+
+
+    @Test
+    @DisplayName("Should validate password min length while creating account")
+    @Order(16)
+    public void testCreateAccountValidationMinLengthPassword() {
+        goToCreateAccountScreen();
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+
+        createAccount("validfirstname", "validlastname",
+                "email23@site.com", "CS");
+
+        assertEquals(CREATE_ACCOUNT_ACTIVITY, androidDriver.currentActivity());
+    }
+
 }
